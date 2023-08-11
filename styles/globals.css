@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded transition-colors duration-150 ease-in-out; 
+}
+
+.btn-primary:hover {
+  @apply bg-blue-700
+}
+
+.btn-secondary {
+  @apply bg-orange-500 text-white font-bold py-2 px-4 rounded transition-colors duration-150 ease-in-out; 
+}
+
+.btn-secondary:hover {
+  @apply bg-orange-700
+}
