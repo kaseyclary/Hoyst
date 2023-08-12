@@ -4,6 +4,8 @@ import { formatDate } from '@/lib/utils';
 import WorkoutCard from '@/components/WorkoutCard/WorkoutCard';
 import BottomNav from '@/components/layout/BottomNav';
 import Link from 'next/link';
+import { useUser } from '@/userContext';
+import { useEffect } from 'react';
 
 export default function Home({ workouts }) {
 
@@ -13,7 +15,7 @@ export default function Home({ workouts }) {
 
   return (
     <div className="min-h-screen bg-slate-100 pt-[50px]">
-      {orderedWorkouts.length && orderedWorkouts > 0 ? (
+      {orderedWorkouts.length ? (
         <div className="max-w-[600px] mx-auto pb-20">
           {orderedWorkouts.map((workout) => (
               <WorkoutCard key={workout._id} workout={workout} />

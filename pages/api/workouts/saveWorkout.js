@@ -20,7 +20,9 @@ export default async function handler(req, res) {
       date,
       lifts,
       userName,
-      userId
+      userId,
+      likes: [],
+      comments: [],
     });
 
     // Optionally, update the user's "workouts" array with the new workout ID
