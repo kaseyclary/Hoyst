@@ -15,8 +15,11 @@ export default function BottomNav ({children}) {
         router.push("/Home");
     };
 
-    const user = useUser();
+    const handleFriendsNavigation = () => {
+        router.push("/friends");
+    };
 
+    const user = useUser();
 
     return (
         router.pathname === "/" ? (
@@ -56,8 +59,9 @@ export default function BottomNav ({children}) {
                     </div>
                 )}
             </div>
-            <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center h-16">
-                <div className="flex justify-between items-center w-full max-w-[500px] px-4">
+            {router.pathname === "/register" ? null : (
+                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center h-16">
+                <div className="flex justify-between items-center w-full max-w-[500px] px-8 pb-3" onClick={handleFriendsNavigation}>
                     <div className="flex flex-col items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <circle cx="5" cy="6" r="2" fill="currentColor"/>
@@ -100,6 +104,7 @@ export default function BottomNav ({children}) {
                     </div>
                 </div>
             </div>
+            )}
         </div>
     ))
 }
