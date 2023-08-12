@@ -13,7 +13,7 @@ export default function Home({ workouts }) {
 
   return (
     <div className="min-h-screen bg-slate-100 pt-[50px]">
-      {orderedWorkouts.length > 0 ? (
+      {orderedWorkouts.length && orderedWorkouts > 0 ? (
         <div className="max-w-[600px] mx-auto pb-20">
           {orderedWorkouts.map((workout) => (
               <WorkoutCard key={workout._id} workout={workout} />
