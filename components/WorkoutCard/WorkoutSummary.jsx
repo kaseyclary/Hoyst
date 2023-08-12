@@ -8,7 +8,7 @@ export const WorkoutSummary = ({ workout }) => {
                     <div key={index} className="border-r-[1px] border-r-slate-400 border-b-[1px] border-b-slate-200">
                         <p className="font-semibold text-sm mb-1">{lift.name}</p>
                         <p className="text-xs font-medium mb-1">{countSets(lift)} sets, {countTotalReps(lift)} reps</p>
-                        <p className="text-xs font-medium mb-2">{lift.highestOneRepMax} 1RM</p>
+                        <p className="text-xs font-medium mb-2">{lift.highestOneRepMax} lbs Best Effort</p>
                     </div>
                 ))}
             </div>

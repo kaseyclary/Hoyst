@@ -1,11 +1,25 @@
 import clientPromise from '@/lib/db';
 
 export default async function handler(req, res) {
+
   if (req.method !== 'POST') {
     return res.status(405).end();
   }
 
-  const { email, firstName, lastName, experience, phoneNumber, weight } = req.body;
+  const { 
+    email, 
+    firstName, 
+    lastName, 
+    photoUrl, 
+    experience, 
+    phoneNumber, 
+    weight, 
+    following, 
+    followers, 
+    likedWorkouts, 
+    commentedWorkouts, 
+    wilksScore, 
+    oneRepMaxes } = req.body;
 
   // Validate the data
   if (!firstName || !lastName || !experience || !phoneNumber) {
@@ -23,12 +37,20 @@ export default async function handler(req, res) {
       email,
       firstName,
       lastName,
+      photoUrl,
       experience,
       phoneNumber,
       weight,
+      following,
+      followers,
+      likedWorkouts,
+      commentedWorkouts,
+      wilksScore,
+      oneRepMaxes,
     });
 
     return res.status(200).json({ success: true, data: result });
+    
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'An error occurred while registering the user' });

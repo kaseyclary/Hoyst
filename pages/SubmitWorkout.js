@@ -9,7 +9,7 @@ export default function SubmitWorkout() {
     const router = useRouter()
 
     return (
-        <div className="px-4 mt-[75px] max-w-[600px] mx-auto text-slate-700">
+        <div className="px-4 pt-[75px] max-w-[600px] mx-auto text-slate-700 pb-[100px]">
             <h1 className="text-xl font-bold text-slate-800">{workout.name}</h1>
             <p className="font-medium mb-3">{formatDate(workout.date)}</p>
             <textarea className="w-full p-2 border border-gray-300 rounded mb-3 h-[100px]" placeholder="How did it feel? Share some takeaways from today's session." value={workout.description} onChange={(e) => handleWorkoutDescriptionChange(e.target.value)} />

@@ -32,6 +32,15 @@ const SignUpWithGoogleButton = () => {
     )
 }
 
+const ShadowSignOutButton = () => {
+    return (
+        <div>
+            <button className="px-2 py-1 border border-white text-white rounded font-medium hover:bg-white hover:text-slate-600 transition-colors duration-200 ease-in-out" onClick={() => signOut()}>Sign Out</button>
+        </div>
+    )
+}
 
 
-export { SignInWithGoogleButton, ShadowSignInButton, SignOutButton, SignUpWithGoogleButton}
+
+
+export { SignInWithGoogleButton, ShadowSignInButton, SignOutButton, SignUpWithGoogleButton, ShadowSignOutButton}

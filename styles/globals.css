@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .btn-primary {
-  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded transition-colors duration-150 ease-in-out; 
+  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded transition-colors duration-200 ease-in-out; 
 }
 
 .btn-primary:hover {
@@ -11,9 +11,21 @@
 }
 
 .btn-secondary {
-  @apply bg-orange-500 text-white font-bold py-2 px-4 rounded transition-colors duration-150 ease-in-out; 
+  @apply bg-orange-500 text-white font-bold py-2 px-4 rounded transition-colors duration-200 ease-in-out; 
 }
 
 .btn-secondary:hover {
   @apply bg-orange-700
+}
+
+.btn-secondary-sm {
+  @apply bg-orange-500 text-white text-sm font-medium py-1 px-2 min-w-[75px] rounded border border-orange-500 transition-colors duration-150 ease-in-out; 
+}
+
+.btn-secondary-sm:hover {
+  @apply bg-orange-700
+}
+
+.btn-ghost-secondary-sm {
+  @apply text-sm bg-white border border-orange-500 min-w-[75px] text-orange-500 rounded px-2 py-1 font-medium hover:bg-orange-500 hover:text-white transition-colors duration-200 ease-in-out;
 }

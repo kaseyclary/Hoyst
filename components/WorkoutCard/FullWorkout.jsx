@@ -1,3 +1,5 @@
+import { calculateOneRepMax } from "@/lib/utils"
+
 export const FullWorkout = ({ workout }) => {
     return (
         <div className="mt-6">
@@ -19,8 +21,8 @@ export const FullWorkout = ({ workout }) => {
                         {lift.sets.map((set, index) => (
                             <div key={index} className="flex items-center grid grid-cols-3 py-2 pl-4">
                                 <p className="text-sm font-medium">{set.weight} lbs x {set.reps}</p>
-                                <p className="text-sm font-medium">{set.totalVolume} lbs</p>
-                                <p className="text-sm font-medium">{set.oneRepMax} lbs</p>
+                                <p className="text-sm font-medium">{set.weight * set.reps} lbs</p>
+                                <p className="text-sm font-medium">{calculateOneRepMax(set.weight, set.reps)} lbs</p>
                             </div>
                         ))}
                     </div>

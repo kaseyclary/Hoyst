@@ -5,17 +5,21 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  const { name, lifts, userId, date } = req.body;
+  const { name, lifts, userId, date, } = req.body;
 
   try {
     const client = await clientPromise;
     const db = client.db("LiftingApp");
     const collection = db.collection('workouts');
 
+    const user = await db.collection('users').findOne({ email: userId });
+    const userName = user.firstName + ' ' + user.lastName;    
+
     const result = await collection.insertOne({
       name,
       date,
       lifts,
+      userName,
       userId
     });
 

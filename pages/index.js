@@ -1,7 +1,11 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import { SignUpWithGoogleButton } from '@/components/Auth'
+import { getSession } from 'next-auth/react'
 import Image from 'next/image'
+import clientPromise from '@/lib/db'
+import { redirect } from 'next/dist/server/api-utils'
+import { KettleBellIcon } from '@/components/icons'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,16 +18,36 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-gradient-to-bl from-[#ff7418] to-[#f55622] h-screen">
-        <div className="max-w-[600px] h-full mx-auto flex flex-col items-center justify-center">
-          <h1 className="text-white text-[4rem] font-black">Hoyst</h1>
-          <h2 className="text-white text-[2rem] font-bold mb-12">Built by lifters, for lifters</h2>
-          <div className="bg-white px-[20px] py-[20px] rounded-full flex items-center justify-center mb-12">
-            <img src="hero.png" alt="hero" className="w-[300px]" />
-          </div>
+      <main className="bg-white h-screen">
+        <div className="pt-[100px] px-4 mx-auto max-w-[600px]">
+          <h1 className="text-slate-700 font-bold text-[4rem] mb-4">Hoyst</h1>
+          <h2 className="text-slate-700 font-semibold text-[1.5rem]">The lifting app built by serious lifters, for <span className="text-orange-500">serious lifters.</span></h2>
+        </div>
+        <div className="max-w-[600px] mx-auto flex flex-col items-center justify-center mt-[100px]">
           <SignUpWithGoogleButton />
         </div>
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  const client = await clientPromise;
+  const db = client.db('LiftingApp'); // Update this to your DB name
+
+  //if there is a user logged in, direct them to /Home
+  if (session) {
+    
+    return {
+      redirect: {
+        destination: '/Home',
+        permanent: false,
+      },
+    };
+  }
+
+  // Otherwise, allow them to access the Register page
+  return { props: {} };
 }

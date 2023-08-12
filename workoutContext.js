@@ -44,10 +44,10 @@ export const useWorkout = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          userId: session.user.email,
           name: workout.name,
           date: workout.date,
           lifts: liftsWithCalculations(workout.lifts),
+          userId: session.user.email,
         }),
       });
   

@@ -25,3 +25,21 @@ export const FistBumpIcon = ({height, width, color}) => {
     </svg>
   )
 }
+
+export const KettleBellIcon = ({height, width, color}) => {
+  return (
+    <svg
+    width="200"
+    height="200"
+    xmlns="http://www.w3.org/2000/svg"
+    >
+      <ellipse cx="100" cy="130" rx="80" ry="60" fill="#333" />
+      <path
+        d="M 40 80 Q 100 0 160 80"
+        fill="none"
+        stroke="#333"
+        stroke-width="20"
+      />
+  </svg>
+  )
+}
