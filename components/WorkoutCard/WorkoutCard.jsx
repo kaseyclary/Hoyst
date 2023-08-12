@@ -7,21 +7,43 @@ import { FistBumpIcon } from '../icons'
 import { useUser } from '@/userContext'
 import SocialSection from './SocialSection'
 
-export default function WorkoutCard ({workout}) {
+export default function WorkoutCard ({workout: initialWorkout}) {
 
     const [isExpanded, setIsExpanded] = useState(false)
+
+    const [workout, setWorkout] = useState(initialWorkout);
+
+    const { user } = useUser();
+
+    const handleLikeUpdate = (workoutId) => {
+      if (workout._id === workoutId) {
+        const updatedLikes = workout.likes.includes(user.email)
+          ? workout.likes.filter(email => email !== user.email)
+          : [...workout.likes, user.email];
+        
+        setWorkout({
+          ...workout,
+          likes: updatedLikes
+        });
+      }
+    };
 
     return (
         <div className="w-full bg-white rounded-lg shadow mb-4 text-slate-700">
             <div className="w-full mx-auto px-6 pt-6 pb-3">
                     <div>
                         <div className="mb-3">
-                            <div>
-                                <h3 className="font-semibold text-sm mb-[3px]">{workout.userName}</h3>
-                            </div>
-                            <div className="flex items-center h-full w-full">
-                                <img src="/barbell.png" className="w-[17px] h-[17px] mr-1"/>
-                                <p className="text-xs font-medium">{formatDate(workout.date)}</p>
+                            <div className="flex items-center mb-1">
+                                <img src={workout.photoUrl} className="w-[45px] h-[45px] mr-2 rounded-full"/>
+                                <div>
+                                    <div>
+                                        <h3 className="font-semibold text-sm mb-[3px]">{workout.userName}</h3>
+                                    </div>
+                                    <div className="flex items-center h-full w-full">
+                                        <img src="/barbell.png" className="w-[17px] h-[17px] mr-1"/>
+                                        <p className="text-xs font-medium">{formatDate(workout.date)}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -36,7 +58,7 @@ export default function WorkoutCard ({workout}) {
                     ) : (<WorkoutSummary workout={workout} />)}
                     <button onClick={() => setIsExpanded(!isExpanded)} className="w-full text-center bg-orange-600 py-3 text-sm font-semibold text-white rounded">{isExpanded ? "Close" : "See Full Workout"}</button>
             </div>
-            <SocialSection workout={workout} />
+            <SocialSection workout={workout} onLikeUpdate={handleLikeUpdate} />
         </div>
     )
 }

@@ -36,7 +36,6 @@ export default function BottomNav ({children}) {
             <nav className="fixed top-0 h-[50px] w-screen bg-slate-600 px-4">
                 <div className="max-w-[600px] h-full mx-auto flex items-center justify-between">
                     <h1 className="text-white font-bold text-xl">Hoyst</h1>
-                    <button className="text-white font-semibold text-sm" onClick={() => {console.log(user)}}>See user state</button>
                     <div className="flex h-full items-center">
                         <div className="mr-5">
                             <ShadowSignOutButton />

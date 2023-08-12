@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useUser } from "@/userContext";
 
-export default function SocialSection ({workout}) {
+export default function SocialSection ({workout, onLikeUpdate}) {
     const { user, toggleLikeWorkout, fetchUser } = useUser();
     const [isLiked, setIsLiked] = useState(false);
 
@@ -15,6 +15,7 @@ export default function SocialSection ({workout}) {
     const handleLikeToggle = async () => {
         if (!user) return; // Exit the function if user isn't loaded yet
         await toggleLikeWorkout(workout._id);  // Use the toggle function directly
+        onLikeUpdate(workout._id); // Notify the parent component about the like update
         setIsLiked(prevState => !prevState);
         fetchUser();  // Refetch the user to update the likes array
     };
@@ -24,9 +25,9 @@ export default function SocialSection ({workout}) {
         <div className="w-full">
             <div className="w-3/4 mx-auto flex items-center pb-3">
                 {workout.likes.length > 0 ? (
-                    <p className="text-sm font-semibold">{workout.likes.length} Knucks</p>
+                    <p className="text-xs font-semibold">{workout.likes.length} Knucks</p>
                 ) : (
-                    <p className="text-sm font-semibold">Be the first to give knucks</p>
+                    <p className="text-xs font-semibold">Be the first to give knucks</p>
                 )}  
             </div>
             <div className="h-full w-3/4 mx-auto flex justify-around items-center border-t py-4">

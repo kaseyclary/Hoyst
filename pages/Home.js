@@ -4,8 +4,6 @@ import { formatDate } from '@/lib/utils';
 import WorkoutCard from '@/components/WorkoutCard/WorkoutCard';
 import BottomNav from '@/components/layout/BottomNav';
 import Link from 'next/link';
-import { useUser } from '@/userContext';
-import { useEffect } from 'react';
 
 export default function Home({ workouts }) {
 

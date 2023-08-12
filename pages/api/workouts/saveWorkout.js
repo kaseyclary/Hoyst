@@ -23,6 +23,7 @@ export default async function handler(req, res) {
       userId,
       likes: [],
       comments: [],
+      photoUrl: user.photoUrl,
     });
 
     // Optionally, update the user's "workouts" array with the new workout ID
