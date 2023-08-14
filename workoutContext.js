@@ -58,7 +58,7 @@ export const useWorkout = () => {
   
       const workoutData = await workoutResponse.json();
       console.log('Workout Response:', workoutData);
-
+        clearWorkout();
         router.push('/Home');
   
       // Success handling here, possibly update state or navigate to a success page
@@ -75,6 +75,17 @@ export const useWorkout = () => {
       router.push('/SubmitWorkout');
     }
   }
+
+  const clearWorkout = () => {
+    setWorkout({
+      name: '',
+      date: new Date().toISOString().slice(0, 16),
+      lifts: [{ sets: [{}] }],
+      description: '',
+      userId: session.user.email,
+    });
+  };
+
 
   const handleWorkoutNameChange = (name) => {
     setWorkout({ ...workout, name: name });
