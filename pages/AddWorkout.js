@@ -21,7 +21,7 @@ const AddWorkout = () => {
         <h3 className="text-2xl font-semibold text-slate-700 mb-4">Record a Workout</h3>
         <form className="">
           <input type="text" placeholder="Workout Name" value={workout.name} onChange={(e) => handleWorkoutNameChange(e.target.value)} className="w-full p-2 border border-gray-300 rounded mb-3" />
-          <input type="datetime-local" value={workout.date} onChange={(e) => handleWorkoutDateChange(e.target.value)} className="p-2 border rounded mb-3" required />
+          <input type="datetime-local" value={workout.date} onChange={(e) => handleWorkoutDateChange(e.target.value)} className="p-2 border border-gray-300 w-full rounded mb-3" required />
           {workout.lifts.map((lift, index) => (
             <Lift key={index} liftIndex={index} />
           ))}
