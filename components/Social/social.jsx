@@ -8,7 +8,7 @@ export const SmallUserCard = ({ user, userProfile, addFollower, removeFollower }
 
     return (
         user ? (
-        <div className="w-full px-6">
+        <div className="w-full px-6 mb-5">
             <div className="flex justify-between items-center border-b pb-5">
                 <div>
                     <p className="font-semibold">{userProfile.firstName} {userProfile.lastName}</p>

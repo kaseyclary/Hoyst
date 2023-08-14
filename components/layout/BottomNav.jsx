@@ -74,7 +74,7 @@ export default function BottomNav ({children}) {
                         </svg>
                         <p className="text-xs font-semibold text-slate-400">Friends</p>
                     </div>
-                    <div className="flex flex-col items-center" onClick={() => {handleFeatureComingSoon("Profile")}}>
+                    <div className="flex flex-col items-center" onClick={() => router.push("/profile")}>
                         <svg xmlns="http://www.w3.org/2000/svg"  className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <circle cx="10" cy="6" r="4" fill="currentColor"/>
                             <path d="M10 11c-3.5 0-5 1.5-5 3v2h10v-2c0-1.5-1.5-3-5-3z" fill="currentColor"/>

@@ -92,11 +92,11 @@ const Register = () => {
         <div className="lg:grid grid-cols-2 gap-x-4">
             <div className="flex flex-col">
               <label className="text-lg">Phone Number:</label>
-              <input type="tel" name="phoneNumber" onChange={handleChange} required className="p-2 border rounded" />
+              <input type="tel" name="phoneNumber" inputMode="numeric" pattern="[0-9]*" onChange={handleChange} required className="p-2 border rounded" />
             </div>
             <div className="flex flex-col">
               <label className="text-lg">Weight (lbs):</label>
-              <input type="number" name="weight" onChange={handleChange} required className="p-2 border rounded" />
+              <input type="number" inputMode="numeric" pattern="[0-9]*" name="weight" onChange={handleChange} required className="p-2 border rounded" />
             </div>
         </div>
         <div className="flex flex-col">
