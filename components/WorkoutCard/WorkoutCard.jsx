@@ -45,7 +45,7 @@ export default function WorkoutCard ({workout: initialWorkout}) {
                 setIsUserWorkout(true)
             }
         }
-    }, [user])
+    }, [user, toggleConfirmDelete])
 
     const handleEllipsisClick = () => {
         setEllipsisIsSelected(!ellipsisIsSelected)
