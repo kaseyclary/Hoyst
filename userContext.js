@@ -34,6 +34,12 @@ const userReducer = (state, action) => {
                 ...state,
                 likedWorkouts: state.likedWorkouts.filter(id => id !== action.payload)
             };
+        case 'REMOVE_WORKOUT':
+          return {
+              ...state,
+              workouts: state.workouts.filter(workoutId => workoutId !== action.payload)
+          };
+          
         default:
             return state;
     }
@@ -147,8 +153,12 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const removeUserWorkout = (workoutId) => {
+    dispatch({ type: 'REMOVE_WORKOUT', payload: workoutId });
+  };
+
   return (
-    <UserContext.Provider value={{ user, addFollower, removeFollower, toggleLikeWorkout, fetchUser }}>
+    <UserContext.Provider value={{ user, addFollower, removeFollower, toggleLikeWorkout, fetchUser, removeUserWorkout }}>
       {loading ? <LoaderComponent /> : children}
     </UserContext.Provider>
   );

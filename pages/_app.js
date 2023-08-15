@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
       <UserProvider>
         <WorkoutProvider>
           <BottomNav>
-            <Component {...pageProps} />
+            <Component {...pageProps}/>
             <ToastContainer />
           </BottomNav>
         </WorkoutProvider>

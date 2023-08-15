@@ -15,16 +15,24 @@ export const NotificationBellIcon = ({height, width, color}) => {
 }
 
 
-export const FistBumpIcon = ({height, width, color}) => {
- return (  
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-        <circle cx="35" cy="50" r="15" fill="gray"/>
-        <rect x="45" y="35" width="10" height="30" fill="gray"/>
-        <circle cx="65" cy="50" r="15" fill="gray"/>
-        <rect x="45" y="35" width="10" height="30" fill="gray"/>
-    </svg>
-  )
-}
+export const EllipsisIcon = ({ height = 100, width = 100, color = 'gray', handleEllipsisClick, isSelected }) => {
+  return (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 100 100" 
+        width={width} 
+        height={height} 
+        onClick={handleEllipsisClick} 
+        className={`${isSelected ? "transform rotate-90" : ""} transition-transform duration-500`}
+    >
+        <circle cx="15" cy="50" r="10" fill={color} />
+        <circle cx="50" cy="50" r="10" fill={color} />
+        <circle cx="85" cy="50" r="10" fill={color} />
+      </svg>
+  );
+};
+
+
 
 export const KettleBellIcon = ({height, width, color}) => {
   return (

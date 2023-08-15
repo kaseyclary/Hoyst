@@ -12,7 +12,8 @@ export default function Home({ workouts }) {
   });
 
   return (
-    <div className="min-h-screen bg-slate-100 pt-[50px]">
+    <div className="min-h-screen bg-slate-100 pt-[50px] max-w-screen overflow-x-hidden">
+      
       {orderedWorkouts.length ? (
         <div className="max-w-[600px] mx-auto pb-20">
           {orderedWorkouts.map((workout) => (
