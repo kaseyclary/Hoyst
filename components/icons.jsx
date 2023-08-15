@@ -51,3 +51,32 @@ export const KettleBellIcon = ({height, width, color}) => {
   </svg>
   )
 }
+
+export const LeftArrowIcon = ({height, width, color}) => {
+  return (
+    <svg
+      width={width || "200"}
+      height={height || "200"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        d="M 150 100 L 50 50 L 150 0"
+        fill="none"
+        stroke={color || "#333"}
+        strokeWidth="10"
+      />
+    </svg>
+  )
+}
+
+export const DotIcon = ({height, width, color}) => {
+  return (
+    <svg
+      width={width || "2"}
+      height={height || "2"}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="1" cy="1" r="1" fill={color || "#333"} />
+    </svg>
+  )
+}

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useUser } from "@/userContext";
 import { useRouter } from 'next/router';
+import { WorkoutLikes } from '@/components/ui';
+import { DotIcon } from '../icons';
 
 export default function SocialSection ({workout, onLikeUpdate}) {
     const { user, toggleLikeWorkout, fetchUser } = useUser();
@@ -22,36 +24,16 @@ export default function SocialSection ({workout, onLikeUpdate}) {
         setIsLiked(prevState => !prevState);
         fetchUser();  // Refetch the user to update the likes array
     };
-    
+
+
+    const handleAddComment = () => {
+        router.push(`/workouts/${workout._id}/comments`)
+    }
 
     return (
         <div className="w-full">
             <div className="w-5/6 mx-auto flex items-center pb-3">
-                {workout.likes.length === 1 ? (
-                    <div className="flex items-center">
-                        <img src ={workout.likes[0].userPhoto} className="h-[27px] w-[27px] border-[2px] border-white rounded-full mr-1"/>
-                        <p className="text-xs font-semibold">Knucks from {workout.likes[0].userName}</p>
-                    </div>
-                ) : workout.likes.length === 2 ? (
-                    <div className="flex items-center">
-                        <div className="flex">
-                            <img src ={workout.likes[0].userPhoto} className="h-[27px] w-[27px] border-[2px] border-white rounded-full drop-shadow"/>
-                            <img src={workout.likes[1].userPhoto} className="h-[27px] w-[27px] border-[2px] border-white -ml-3 rounded-full mr-1"/>
-                        </div>
-                        <p className="text-xs font-semibold">Knucks from {workout.likes[0].userName} and {workout.likes.length - 1} other</p>
-                    </div>
-                ) : workout.likes.length === 2 ? (
-                    <div className="flex items-center">
-                        <div className="flex">
-                            <img src ={workout.likes[0].userPhoto} className="h-[27px] w-[27px] border-[2px] border-white rounded-full drop-shadow"/>
-                            <img src ={workout.likes[0].userPhoto} className="h-[27px] w-[27px] border-[2px] border-white rounded-full drop-shadow"/>
-                            <img src={workout.likes[1].userPhoto} className="h-[27px] w-[27px] border-[2px] border-white -ml-3 rounded-full mr-1"/>
-                        </div>
-                        <p className="text-xs font-semibold">Knucks from {workout.likes[0].userName} and {workout.likes.length - 1} others</p>
-                    </div>
-                ) : (
-                    <p className="text-xs font-semibold">Be the first to give knucks</p>
-                )}  
+                <WorkoutLikes workout={workout} />
             </div>
             <div className="h-full w-3/4 mx-auto flex justify-around items-center border-t py-2">
                 <div className="w-full flex justify-center border-r" onClick={handleLikeToggle}>
@@ -62,7 +44,7 @@ export default function SocialSection ({workout, onLikeUpdate}) {
                         height={30}
                     />
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center" onClick={handleAddComment}>
                     <img
                         src="/comment.png"
                         alt="Description of Image"
@@ -71,6 +53,17 @@ export default function SocialSection ({workout, onLikeUpdate}) {
                     />
                 </div>
             </div>
+            { workout.comments.length > 0 ?(
+                <div className="flex w-5/6 mx-auto py-4 border-t items-center">
+                    <img src={user.photoUrl} className="h-[25px] w-[25px] rounded-full mr-2"/>
+                    <div className="flex items-center" onClick={handleAddComment}>
+                        <p className="text-sm font-medium mr-1">{workout.comments[workout.comments.length - 1].userName}</p>
+                        <DotIcon color={"#334155"}/>
+                        <p className="text-sm ml-1 font-light">{workout.comments[workout.comments.length - 1].comment}</p>
+                    </div>
+                </div>
+                ) : null
+            }
         </div>
     );
 }

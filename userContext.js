@@ -39,6 +39,12 @@ const userReducer = (state, action) => {
               ...state,
               workouts: state.workouts.filter(workoutId => workoutId !== action.payload)
           };
+
+        case 'ADD_COMMENT':
+          return {
+              ...state,
+              comments: [...state.comments, action.payload]
+          };
           
         default:
             return state;
