@@ -99,7 +99,7 @@ export default function WorkoutCard ({workout: initialWorkout}) {
                         <h2 className="font-medium mb-4">Are you sure you want to delete <span className="font-semibold">{initialWorkout.name}</span> from {formatDate(initialWorkout.date)}?</h2>
                         <div className="flex">
                             <button className="bg-red-600 text-white px-4 py-2 rounded mr-2" onClick={() => deleteWorkout()}>Delete</button>
-                            <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded" onClick={handleToggleConfirmDelete}>Cancel</button>
+                            <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded" onClick={setToggleConfirmDelete(!toggleConfirmDelete)}>Cancel</button>
                         </div>
                     </div>
                 </div>
