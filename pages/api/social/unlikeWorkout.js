@@ -16,11 +16,11 @@ export default async function handler(req, res) {
         const client = await clientPromise;
         const db = client.db("LiftingApp");
 
-        // Remove the user's email from the workout's likes
+        // Remove the user's userId from the workout's likes
         const workoutCollection = db.collection('workouts');
         const result = await workoutCollection.findOneAndUpdate(
             { _id: new ObjectId(workoutId) },
-            { $pull: { likes: userId } },
+            { $pull: { likes: { userId: userId } } }, // Pulling by matching the userId in the nested objects
             { returnOriginal: false }
         );
 

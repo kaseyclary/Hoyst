@@ -8,6 +8,7 @@ import { useUser } from '@/userContext'
 import SocialSection from './SocialSection'
 import WorkoutMenu from './WorkoutMenu'
 import { useRouter } from 'next/router'
+import { useWorkout } from '@/workoutContext'
 
 
 export default function WorkoutCard ({workout: initialWorkout}) {
@@ -27,16 +28,28 @@ export default function WorkoutCard ({workout: initialWorkout}) {
     const router = useRouter();
 
     const handleLikeUpdate = (workoutId) => {
-      if (workout._id === workoutId) {
-        const updatedLikes = workout.likes.includes(user.email)
-          ? workout.likes.filter(email => email !== user.email)
-          : [...workout.likes, user.email];
-        
-        setWorkout({
-          ...workout,
-          likes: updatedLikes
-        });
-      }
+        if (workout._id === workoutId) {
+          const userLiked = workout.likes.some(like => like.userId === user.email); // Check if the user already liked the workout
+      
+          let updatedLikes;
+          if (userLiked) {
+            // If the user already liked, remove their like
+            updatedLikes = workout.likes.filter(like => like.userId !== user.email);
+          } else {
+            // If the user hasn't liked, add their like
+            const newUserLike = {
+              userId: user.email,
+              userPhoto: user.photoUrl,
+              userName: user.name 
+            };
+            updatedLikes = [...workout.likes, newUserLike];
+          }
+      
+          setWorkout({
+            ...workout,
+            likes: updatedLikes
+          });
+        }
     };
 
     useEffect(() => {
@@ -54,6 +67,10 @@ export default function WorkoutCard ({workout: initialWorkout}) {
     const handleToggleConfirmDelete = () => {
         setToggleConfirmDelete(!toggleConfirmDelete)
         setEllipsisIsSelected(false)
+    }
+
+    const handleEditWorkout = () => {
+        router.push(`/workouts/${workout._id}/edit`)
     }
 
     const deleteWorkout = async () => {
@@ -132,13 +149,16 @@ export default function WorkoutCard ({workout: initialWorkout}) {
                             {isUserWorkout ? ((
                                 <div className="w-fit">
                                     <EllipsisIcon height={25} width={25} color={ellipsisIsSelected ?  "#64748b" : "#94a3b8"} handleEllipsisClick={handleEllipsisClick} isSelected={ellipsisIsSelected}/>
-                                    <WorkoutMenu isOpen={ellipsisIsSelected} workout={workout} handleToggleConfirmDelete={handleToggleConfirmDelete}/>
+                                    <WorkoutMenu isOpen={ellipsisIsSelected} workout={workout} handleToggleConfirmDelete={handleToggleConfirmDelete} handleEditWorkout={handleEditWorkout}/>
                                 </div>
                             )) : null}
                         </div>
                         <div>
                             <h2 className="text-lg font-bold mb-1">{workout.name}</h2>
-                            <div className="flex w-1/2 mb-6">
+                            <div className="mb-3">
+                                <p className="text-sm">{workout.description}</p>
+                            </div>
+                            <div className="flex w-1/2 mb-4">
                                 <p className="text-sm font-medium">{workout.lifts.length} Total Lifts, {countSets(workout.lifts)} Total Sets</p>
                             </div>
                         </div>
@@ -152,3 +172,5 @@ export default function WorkoutCard ({workout: initialWorkout}) {
         </div>
     )
 }
+
+

@@ -133,7 +133,8 @@ export const UserProvider = ({ children }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: session.user.email,
-                userName: user.firstName,
+                userName: user.firstName + " " + user.lastName,
+                userPhoto: user.photoUrl,
                 workoutId,
             }),
         });

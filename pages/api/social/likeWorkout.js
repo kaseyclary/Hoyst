@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  const { userId, userName, workoutId } = req.body;
+  const { userId, userPhoto, userName, workoutId } = req.body;
 
   // Check if necessary data is provided
   if (!userId || !userName || !workoutId) {
@@ -22,7 +22,12 @@ export default async function handler(req, res) {
     const workoutCollection = db.collection('workouts');
     const result = await workoutCollection.findOneAndUpdate(
       { _id: new ObjectId(workoutId) },
-      { $addToSet: { likes: userId } }, 
+      { $addToSet: {
+         likes: {
+          userId,
+          userPhoto,
+          userName
+       } } }, 
       { returnOriginal: false }
     );
 

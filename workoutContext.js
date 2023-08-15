@@ -46,6 +46,7 @@ export const useWorkout = () => {
         body: JSON.stringify({
           name: workout.name,
           date: workout.date,
+          description: workout.description,
           lifts: liftsWithCalculations(workout.lifts),
           userId: session.user.email,
         }),
@@ -75,6 +76,44 @@ export const useWorkout = () => {
       router.push('/SubmitWorkout');
     }
   }
+
+  const editWorkout = async () => {
+    try {
+      const response = await fetch('/api/workouts/editWorkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          workoutId: workout._id,
+          name: workout.name,
+          description: workout.description,
+          date: workout.date,
+          lifts: liftsWithCalculations(workout.lifts)
+        }),
+      });
+  
+      if (!response.ok) {
+        // Handle error, possibly throw an error or update state
+        throw new Error('Failed to edit workout');
+      }
+  
+      const data = await response.json();
+      console.log('Edit Response:', data);
+  
+      // Optionally, navigate to another page or display a success message
+      toast.success("Workout edited successfully!", {
+        position: 'top-center',
+        autoClose: 1250,
+      });
+      router.push('/Home');
+  
+    } catch (error) {
+      toast.error(error.message, {
+        position: 'top-center',
+        autoClose: 1250,
+      });
+    }
+  };
+  
 
   const clearWorkout = () => {
     setWorkout({
@@ -171,6 +210,7 @@ const handleRepsChange = (liftIndex, setIndex, reps) => {
   return (
     <WorkoutContext.Provider value={{ 
         workout,
+        setWorkout,
         handleWorkoutNameChange, 
         handleWorkoutDateChange,
         handleWorkoutDescriptionChange,
@@ -183,6 +223,8 @@ const handleRepsChange = (liftIndex, setIndex, reps) => {
         handleRepsChange,
         handleWorkoutReview,
         submitWorkout,
+        clearWorkout,
+        editWorkout,
     }}>
       {children}
     </WorkoutContext.Provider>

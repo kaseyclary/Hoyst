@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  const { name, lifts, userId, date, } = req.body;
+  const { name, lifts, userId, date, description } = req.body;
 
   try {
     const client = await clientPromise;
@@ -18,6 +18,7 @@ export default async function handler(req, res) {
     const result = await collection.insertOne({
       name,
       date,
+      description,
       lifts,
       userName,
       userId,
