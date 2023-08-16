@@ -18,12 +18,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-white h-screen">
-        <div className="pt-[100px] px-4 mx-auto max-w-[600px]">
-          <h1 className="text-slate-700 font-bold text-[4rem] mb-4">Hoyst</h1>
-          <h2 className="text-slate-700 font-semibold text-[1.5rem]">The lifting app built by serious lifters, for <span className="text-orange-500">serious lifters.</span></h2>
-        </div>
-        <div className="max-w-[600px] mx-auto flex flex-col items-center justify-center mt-[100px]">
+      <main className="bg-slate-600 h-screen flex items-center">
+        <div className="px-4 mx-auto max-w-[600px] flex flex-col h-1/2 justify-around">
+          <h1 className="text-orange-500 font-bold text-[4rem] mb-4">Hoyst</h1>
+          <h2 className="text-white font-medium text-[2rem]">The social lifting app built by serious lifters, for <span className="text-orange-500 font-bold">serious lifters.</span></h2>
           <SignUpWithGoogleButton />
         </div>
       </main>
