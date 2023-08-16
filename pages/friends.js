@@ -40,8 +40,8 @@ export async function getServerSideProps(context) {
   const user = await db.collection('users').findOne({ email: session.user.email });
   const users = await db.collection('users').find({}).toArray();
 
-  const userIsFollowing = user.following.map((user) => user.email);
-  const userIsFollowedBy = user.followers.map((user) => user.email);
+  const userIsFollowing = user.following.map((user) => {user.email, user.firstName, user.lastName, user.photoUrl, user.following, user.followers, user.workouts});
+  const userIsFollowedBy = user.followers.map((user) => {user.email, user.firstName, user.lastName, user.photoUrl, user.following, user.followers, user.workouts});
   const userIsNotFollowing = users.filter((user) => 
     !userIsFollowing.includes(user.email) && user.email !== session.user.email
   );

@@ -3,10 +3,13 @@ import { useUser } from "@/userContext";
 import { useRouter } from 'next/router';
 import { WorkoutLikes } from '@/components/ui';
 import { DotIcon } from '../icons';
+import { LoaderComponent } from '@/components/ui';
 
 export default function SocialSection ({workout, onLikeUpdate}) {
     const { user, toggleLikeWorkout, fetchUser } = useUser();
     const [isLiked, setIsLiked] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
@@ -14,6 +17,7 @@ export default function SocialSection ({workout, onLikeUpdate}) {
     useEffect(() => {
         if (user) {
             setIsLiked(user.likedWorkouts.includes(workout._id));
+        } else {
         }
     }, [workout, user]);
 
@@ -53,13 +57,13 @@ export default function SocialSection ({workout, onLikeUpdate}) {
                     />
                 </div>
             </div>
-            { workout.comments.length > 0 ?(
+            { workout.comments.length > 0 ? (
                 <div className="flex w-5/6 mx-auto py-4 border-t items-center">
-                    <img src={user.photoUrl} className="h-[25px] w-[25px] rounded-full mr-2"/>
-                    <div className="flex items-center" onClick={handleAddComment}>
-                        <p className="text-sm font-medium mr-1">{workout.comments[workout.comments.length - 1].userName}</p>
+                    <img src={workout.comments[workout.comments.length - 1].userPhoto} className="h-[25px] w-[25px] rounded-full mr-2"/>
+                    <div className="flex items-center text-xs" onClick={handleAddComment}>
+                        <p className="font-medium mr-1">{workout.comments[workout.comments.length - 1].userName}</p>
                         <DotIcon color={"#334155"}/>
-                        <p className="text-sm ml-1 font-light">{workout.comments[workout.comments.length - 1].comment}</p>
+                        <p className="ml-1 font-light">{workout.comments[workout.comments.length - 1].comment}</p>
                     </div>
                 </div>
                 ) : null
