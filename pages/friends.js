@@ -2,10 +2,15 @@ import clientPromise from "@/lib/db"
 import { getSession } from "next-auth/react"
 import { SmallUserCard } from "@/components/Social/social";
 import { useUser } from "@/userContext";
+import { useEffect } from "react";
 
 export default function Friends ({ userIsNotFollowing, userIsFollowedBy, userIsFollowing}) {
 
-    const {user, addFollower, removeFollower} = useUser();
+    const {user, addFollower, removeFollower, fetchUser} = useUser();
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
 
     return (
         <div className="mt-[75px] max-w-[600px] mx-auto">

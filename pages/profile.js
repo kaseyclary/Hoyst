@@ -1,15 +1,20 @@
 import { getSession } from 'next-auth/react';
 import clientPromise from '../lib/db'; // Assuming you have a db client setup
 import { findBestEffort } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Profile({ user, workouts }) {
 
-    const [bestSquat, setBestSquat] = useState(findBestEffort(workouts, "Squat"));
-    const [bestBench, setBestBench] = useState(findBestEffort(workouts, "Bench Press"));
-    const [bestDeadlift, setBestDeadlift] = useState(findBestEffort(workouts, "Deadlift"));
+    const [bestSquat, setBestSquat] = useState(0);
+    const [bestBench, setBestBench] = useState(0);
+    const [bestDeadlift, setBestDeadlift] = useState(0);
 
-    console.log(workouts)
+    useEffect(() => {
+        if (!workouts) return;
+        setBestSquat(findBestEffort(workouts, "Squat"));
+        setBestBench(findBestEffort(workouts, "Bench Press"));
+        setBestDeadlift(findBestEffort(workouts, "Deadlift"));
+    }, [workouts])
 
     return (
         <div className="mt-[100px] max-w-[600px] mx-auto px-4 w-screen">
@@ -23,20 +28,19 @@ export default function Profile({ user, workouts }) {
                 </div>
             </div>
             <div className="flex w-full mb-3 text-sm font-medium">
-                <p>Following: {user.following.length}</p>
+                <p>Following: {user.following ? user.following.length : "0"}</p>
                 <p className="mx-2">|</p>
-                <p> Followers: {user.followers.length}</p>
+                <p> Followers: {user.followers ? user.followers.length : "0"}</p>
             </div>
             <div className="flex text-sm font-medium">
                 <img src="/barbell.png" alt="Barbell" className="w-[17px] h-[17px] mr-2" />
-                <p className="text-sm">{user.workouts.length} recorded workouts</p>
+                <p className="text-sm">{user.workouts ? user.workouts.length : "0"} recorded workouts</p>
             </div>
             <div>
                 <h3 className="text-lg font-bold mt-6 mb-3">Big 3: {bestSquat + bestBench + bestDeadlift} Total.</h3>
                 <p>Squat Max: {bestSquat}</p>
                 <p>Bench Max: {bestBench}</p>
                 <p>Deadlift Max: {bestDeadlift}</p>
-                
             </div>
         </div>
     )
@@ -71,7 +75,10 @@ export async function getServerSideProps(context) {
 
     // Fetch the user's workouts based on the IDs in the user.workouts array
     const workoutCollection = db.collection('workouts');
-    const workouts = await workoutCollection.find({ _id: { $in: user.workouts } }).toArray();
+    let workouts = [];
+    if(user.workouts && user.workouts.length > 0) {
+        const workouts = await workoutCollection.find({ _id: { $in: user.workouts } }).toArray();
+    }
 
     return {
         props: {
