@@ -9,7 +9,7 @@ import { useSession } from 'next-auth/react';
 import { LeftArrowIcon } from '@/components/icons';
 
 
-export default function EditWorkout({ workoutData }) {
+export default function Comments ({ workoutData }) {
 
     const { user, fetchUser } = useUser();
     const { data: session } = useSession();

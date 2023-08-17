@@ -4,6 +4,7 @@ import { useWorkout } from '@/workoutContext';
 import Lift from '@/components/WorkoutForm/Lift';
 import { toast } from 'react-toastify';
 import Set from '@/components/WorkoutForm/Set';
+import Select from 'react-select';
 
 export default function EditWorkout({ workoutData }) {
     const router = useRouter();
@@ -12,6 +13,11 @@ export default function EditWorkout({ workoutData }) {
     // Fetch the workout data using _id if needed
     // You can use useEffect to fetch data when _id is available
     let prevWorkout = null;
+
+    const visibility = [
+        {value: "public", label: "Public"},
+        {value: "private", label: "Private"}
+    ]
 
     const { 
         workout, 
@@ -24,6 +30,7 @@ export default function EditWorkout({ workoutData }) {
         submitWorkout,
         clearWorkout,
         editWorkout,
+        handleVisibilityChange,
       } = useWorkout();
 
     const handleSubmitEdit = () => {
@@ -53,6 +60,16 @@ export default function EditWorkout({ workoutData }) {
             <h3 className="text-2xl font-semibold text-slate-700 mb-4">Edit Workout</h3>
             <textarea className="w-full p-2 border border-gray-300 rounded mb-3 h-[100px]" placeholder="How did it feel? Share some takeaways from today's session." value={workout.description} onChange={(e) => handleWorkoutDescriptionChange(e.target.value)} />
             <form className="">
+                <div className="flex items-center mb-3">
+                    <label className="font-medium">Visibility: </label>
+                    <Select 
+                        options={visibility} 
+                        placeholder="Visibility" 
+                        className="w-full ml-3" 
+                        value={visibility.filter(option => option.value === workout.visibility)}
+                        onChange={(selectedOption) => handleVisibilityChange(selectedOption.value)} 
+                    />            
+                </div>
                 <input type="text" placeholder="Workout Name" value={workout.name} onChange={(e) => handleWorkoutNameChange(e.target.value)} className="w-full p-2 border border-gray-300 rounded mb-3" />
                 <input type="datetime-local" value={workout.date} onChange={(e) => handleWorkoutDateChange(e.target.value)} className="p-2 border border-gray-300 w-full rounded mb-3" required />
                 {workout.lifts.map((lift, index) => (

@@ -68,8 +68,20 @@ export async function getServerSideProps(context) {
     .find({ userId: { $in: usersToFetchWorkoutsFor } })
     .toArray();
 
+  // create an array that only includes the user's own workouts and those of the users they follow where the workout visibility is set to public or the workout visibility field doesn't exist
+  const filteredWorkouts = workouts.filter((workout) => {
+    if (workout.visibility === 'public' || !workout.visibility) {
+      return true;
+    } else if (workout.visibility === 'private' && workout.userId === session.user.email){
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+
   // Convert ObjectIDs to strings
-  const serializedWorkouts = workouts.map((workout) => ({
+  const serializedWorkouts = filteredWorkouts.map((workout) => ({
     ...workout,
     _id: workout._id.toString(),
   }));

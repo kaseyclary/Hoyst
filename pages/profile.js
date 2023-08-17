@@ -76,6 +76,7 @@ export async function getServerSideProps(context) {
     // Fetch the user's workouts based on the IDs in the user.workouts array
     const workoutCollection = db.collection('workouts');
     let workouts = [];
+    let bestLifts = [];
     if(user.workouts && user.workouts.length > 0) {
         const workouts = await workoutCollection.find({ _id: { $in: user.workouts } }).toArray();
     }
@@ -84,6 +85,7 @@ export async function getServerSideProps(context) {
         props: {
             user: JSON.parse(JSON.stringify(user)), // This ensures the data is serializable
             workouts: JSON.parse(JSON.stringify(workouts)), // This ensures the data is serializable
+            bestLifts: JSON.parse(JSON.stringify(bestLifts)), // This ensures the data is serializable
         },
     };
 }

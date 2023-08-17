@@ -17,6 +17,7 @@ export const useWorkout = () => {
       date: new Date().toISOString().slice(0, 16),
       lifts: [{ sets: [{}] }],
       description: '',
+      visibility: 'public',
   });
 
   useEffect(() => {
@@ -49,6 +50,7 @@ export const useWorkout = () => {
           description: workout.description,
           lifts: liftsWithCalculations(workout.lifts),
           userId: session.user.email,
+          visibility: workout.visibility,
         }),
       });
   
@@ -87,7 +89,8 @@ export const useWorkout = () => {
           name: workout.name,
           description: workout.description,
           date: workout.date,
-          lifts: liftsWithCalculations(workout.lifts)
+          lifts: liftsWithCalculations(workout.lifts),
+          visibility: workout.visibility,
         }),
       });
   
@@ -97,13 +100,13 @@ export const useWorkout = () => {
       }
   
       const data = await response.json();
-      console.log('Edit Response:', data);
   
       // Optionally, navigate to another page or display a success message
       toast.success("Workout edited successfully!", {
         position: 'top-center',
         autoClose: 1250,
       });
+      clearWorkout();
       router.push('/Home');
   
     } catch (error) {
@@ -122,6 +125,7 @@ export const useWorkout = () => {
       lifts: [{ sets: [{}] }],
       description: '',
       userId: session.user.email,
+      visibility: 'public',
     });
   };
 
@@ -136,6 +140,13 @@ export const useWorkout = () => {
 
   const handleWorkoutDescriptionChange = (description) => {
     setWorkout({ ...workout, description: description });
+  };
+
+  const handleVisibilityChange = (visibility) => {
+    setWorkout(prevWorkout => ({
+      ...prevWorkout,
+      visibility: visibility,
+    }));
   };
 
   //Lift Details
@@ -213,6 +224,7 @@ const handleRepsChange = (liftIndex, setIndex, reps) => {
         setWorkout,
         handleWorkoutNameChange, 
         handleWorkoutDateChange,
+        handleVisibilityChange,
         handleWorkoutDescriptionChange,
         handleAddLift,
         handleLiftNameChange,

@@ -1,6 +1,7 @@
 import { getServerSideProps } from "@/pages";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LoaderComponent } from "../ui";
+import { useRouter } from "next/router";
 
 export const SmallUserCard = ({ user, userProfile, addFollower, removeFollower }) => {
 
@@ -15,14 +16,18 @@ export const SmallUserCard = ({ user, userProfile, addFollower, removeFollower }
                     <div>
                         <p className="font-semibold">{userProfile.firstName} {userProfile.lastName}</p>
                         <p className="text-xs mb-1 font-medium">{userProfile.workouts ? userProfile.workouts.length : "0"} Recorded Hoyst workouts</p>
-                        <p className="text-xs">Following {userProfile.following.length} | Followed by {userProfile.followers.length}</p>
+                        <FollowersDisplay user={user} userProfile={userProfile} size="small"/>
+                        {/* <p className="text-xs">Following {userProfile.following.length} | Followed by {userProfile.followers.length}</p> */}
                     </div>
                 </div>
-                {isFollowed ? (
-                  <button className="btn-secondary-sm" onClick={() => removeFollower(userProfile.email)}>Unfollow</button>
-                ): (
-                  <button className="btn-ghost-secondary-sm" onClick={() => addFollower(userProfile.email)}>Follow</button>
-                )}
+                {userProfile.email === user.email ? null : (
+                <div>
+                    {isFollowed ? (
+                    <button className="btn-secondary-sm" onClick={() => removeFollower(userProfile.email)}>Unfollow</button>
+                    ): (
+                    <button className="btn-ghost-secondary-sm" onClick={() => addFollower(userProfile.email)}>Follow</button>
+                    )}
+                </div>)}
             </div>
         </div>
         ) : (
@@ -30,4 +35,25 @@ export const SmallUserCard = ({ user, userProfile, addFollower, removeFollower }
         )
     )
 };
+
+export const FollowersDisplay = ({ user, userProfile, size }) => {
+    const router = useRouter();
+
+    const textSize = size === "small"
+        ? "text-xs"
+        : "text-sm";
+
+    return (
+        user ? (
+            <div className="">
+                <p className={textSize}>
+                    <span onClick={() => router.push(`profiles/${userProfile.email}/following`)}>Following {userProfile.following.length}</span> | 
+                    <span onClick={() => router.push(`profiles/${userProfile.email}/followers`)}> Followed by {userProfile.followers.length}</span>
+                </p>
+            </div>
+        ) : (
+            <LoaderComponent />
+        )
+    );
+}
 

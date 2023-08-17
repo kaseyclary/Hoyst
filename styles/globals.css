@@ -33,3 +33,11 @@
 .btn-ghost-secondary-sm {
   @apply text-sm bg-white border border-orange-500 min-w-[75px] text-orange-500 rounded px-2 py-1 font-medium hover:bg-orange-500 hover:text-white transition-colors duration-200 ease-in-out;
 }
+
+.full-height-button {
+  height: 100%;
+}
+
+.striped-rows:nth-child(odd) {
+  @apply bg-slate-100;
+}

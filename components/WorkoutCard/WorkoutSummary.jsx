@@ -2,8 +2,8 @@ import { formatDate, countSets, countTotalReps } from '@/lib/utils';
 
 export const WorkoutSummary = ({ workout }) => {
     return (
-        <div className="text-slate-700">
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 w-full mb-4">
+        <div className="text-slate-700 mt-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-4 w-full mb-8">
                 {workout.lifts.map((lift, index) => (
                     <div key={index} className="">
                         <p className="font-semibold text-sm mb-1">{lift.name}</p>

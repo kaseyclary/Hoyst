@@ -97,6 +97,7 @@ const Register = () => {
             <div className="flex flex-col">
               <label className="text-lg">Weight (lbs):</label>
               <input type="number" inputMode="numeric" pattern="[0-9]*" name="weight" onChange={handleChange} required className="p-2 border rounded" />
+              <p className="red-400 text-xs">*Your weight will not be shared with anyone. It is only used for relative strength calculations.</p>
             </div>
         </div>
         <div className="flex flex-col">

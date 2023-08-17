@@ -80,3 +80,18 @@ export const DotIcon = ({height, width, color}) => {
     </svg>
   )
 }
+
+export const HomeIcon = ({height, width, color}) => {
+}
+
+export const FriendsIcon = ({height, width, color}) => {
+}
+
+export const ProfileIcon = ({height, width, color}) => {
+}
+
+export const GoalsIcon = ({height, width, color}) => {
+}
+
+export const AnalyticsIcon = ({height, width, color}) => {
+}

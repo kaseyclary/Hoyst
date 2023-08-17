@@ -124,6 +124,16 @@ export default function WorkoutCard ({workout: initialWorkout}) {
         ) : null
     }
 
+    const KnucksModal = () => {
+        return (
+            <div>
+                <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-25 z-50 flex items-center justify-center">
+                                
+                </div>
+            </div>
+        )
+    }
+
 
     return (
         <div className="w-full bg-white rounded-lg shadow mb-4 text-slate-700 overflow-x-hidden">
@@ -154,7 +164,14 @@ export default function WorkoutCard ({workout: initialWorkout}) {
                             )) : null}
                         </div>
                         <div>
-                            <h2 className="text-lg font-bold mb-1">{workout.name}</h2>
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-lg font-bold mb-1">{workout.name}</h2>
+                                {workout.visibility && workout.visibility === "private" ? (
+                                <div className="flex items-center">
+                                    <img src="/padlock.png" className="h-[14px] w-[14px] mr-1"/>
+                                    <p className="text-xs mr-3 font-medium">Private</p>
+                                </div>) : null}
+                            </div>
                             <div className="mb-3">
                                 <p className="text-sm">{workout.description}</p>
                             </div>

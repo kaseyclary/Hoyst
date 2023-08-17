@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  const { name, lifts, userId, date, description } = req.body;
+  const { name, lifts, userId, date, description, visibility } = req.body;
 
   try {
     const client = await clientPromise;
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
       likes: [],
       comments: [],
       photoUrl: user.photoUrl,
+      visibility
     });
 
     // Optionally, update the user's "workouts" array with the new workout ID

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         return res.status(405).end(); // Method Not Allowed
     }
 
-    const { workoutId, name, lifts, date, description } = req.body;
+    const { workoutId, name, lifts, date, description, visibility } = req.body;
 
     if (!workoutId) {
         return res.status(400).json({ error: 'Workout ID is required' });
@@ -25,7 +25,8 @@ export default async function handler(req, res) {
                     name: name,
                     description: description,
                     date: date,
-                    lifts: lifts
+                    lifts: lifts,
+                    visibility: visibility
                 }
             }
         );
