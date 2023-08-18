@@ -47,8 +47,8 @@ export const FollowersDisplay = ({ user, userProfile, size }) => {
         user ? (
             <div className="">
                 <p className={textSize}>
-                    <span onClick={() => router.push(`profiles/${userProfile.email}/following`)}>Following {userProfile.following.length}</span> | 
-                    <span onClick={() => router.push(`profiles/${userProfile.email}/followers`)}> Followed by {userProfile.followers.length}</span>
+                    <span>Following {userProfile.following.length}</span> | 
+                    <span> Followed by {userProfile.followers.length}</span>
                 </p>
             </div>
         ) : (

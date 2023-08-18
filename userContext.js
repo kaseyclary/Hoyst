@@ -74,7 +74,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUser();
-  }, [session, user]);
+  }, [session]);
 
 
   const addFollower = async (friendEmail) => {

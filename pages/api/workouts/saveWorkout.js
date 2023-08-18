@@ -15,6 +15,11 @@ export default async function handler(req, res) {
     const user = await db.collection('users').findOne({ email: userId });
     const userName = user.firstName + ' ' + user.lastName;    
 
+    const liftTypes = lifts.map((lift) => lift.liftType);
+
+    // Create an array of all liftTypes that are not in the user's liftTypes array
+    const newLiftTypes = liftTypes.filter((liftType) => !user.liftTypes.includes(liftType));
+
     const result = await collection.insertOne({
       name,
       date,
@@ -31,6 +36,13 @@ export default async function handler(req, res) {
     // Optionally, update the user's "workouts" array with the new workout ID
     const usersCollection = db.collection('users');
     await usersCollection.updateOne({ email: userId }, { $push: { workouts: result.insertedId } });
+
+    if (newLiftTypes.length > 0) {
+      await usersCollection.updateOne(
+        { email: userId },
+        { $push: { liftTypes: { $each: newLiftTypes } } }
+      );
+    }
 
     return res.status(200).json({ success: true, id: result.insertedId });
   } catch (error) {
