@@ -1,22 +1,40 @@
 import { getSession } from 'next-auth/react';
 import clientPromise from '../lib/db';
-import { formatDate } from '@/lib/utils';
 import WorkoutCard from '@/components/WorkoutCard/WorkoutCard';
-import BottomNav from '@/components/layout/BottomNav';
 import Link from 'next/link';
+import { liftTypes } from '@/lib/utils';
+import Select from 'react-select';
+import { useState } from 'react';
 
 export default function Home({ workouts }) {
+
+  const [selectedLift, setSelectedLift] = useState(null);
 
   const orderedWorkouts = workouts.sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
 
+  const filteredWorkouts = selectedLift
+  ? orderedWorkouts.filter(workout => 
+      workout.lifts.some(lift => lift.name === selectedLift)
+    )
+  : orderedWorkouts;
+
   return (
     <div className="min-h-screen bg-slate-100 pt-[50px] max-w-screen overflow-x-hidden">
-      
-      {orderedWorkouts.length ? (
+      <div className="flex w-full px-2 py-2 ">
+        <Select 
+          placeholder="Filter..." 
+          className="w-full" 
+          options={liftTypes}
+          value={selectedLift ? {label: selectedLift, value: selectedLift} : null}
+          onChange={(option) => setSelectedLift(option ? option.label : null)}
+        />
+        <button className={selectedLift ? " px-3 py-1 bg-red-600 ml-2 rounded text-sm text-white font-medium" : "hidden"} onClick={() => setSelectedLift(null)}>Clear</button>
+      </div>
+        {filteredWorkouts.length ? (
         <div className="max-w-[600px] mx-auto pb-20">
-          {orderedWorkouts.map((workout) => (
+          {filteredWorkouts.map((workout) => (
               <WorkoutCard key={workout._id} workout={workout} />
           ))}
         </div>
