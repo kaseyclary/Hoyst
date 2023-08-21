@@ -61,7 +61,7 @@ export default function BottomNav ({children}) {
                     )}
                 </div>
             {router.pathname === "/register" ? null : (
-                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center h-16">
+                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center h-16 z-50">
                 <div className="flex justify-between items-center w-full max-w-[500px] px-8 pb-3">
                     <div className="flex flex-col items-center" onClick={() => router.push('/friends')}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
