@@ -13,7 +13,7 @@ export default function Friends ({ userIsNotFollowing, userIsFollowedBy, userIsF
     }, []);
 
     return (
-        <div className="mt-[75px] max-w-[600px] mx-auto">
+        <div className="mt-[75px] max-w-[600px] mx-auto pb-24">
             {userIsNotFollowing.map((userProfile) => (
                 <SmallUserCard 
                   key={userProfile._id} 
