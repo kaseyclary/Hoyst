@@ -1,27 +1,22 @@
-import { getSession } from 'next-auth/react';
-import clientPromise from '../lib/db'; // Assuming you have a db client setup
-import { findBestEffort } from '@/lib/utils';
-import { useState, useEffect } from 'react';
-import { liftTypes } from '@/lib/utils';
-import Select from 'react-select';
-import WorkoutCard from '@/components/WorkoutCard/WorkoutCard';
-import Link from 'next/link';
+import { getSession } from "next-auth/react";
+import clientPromise from "@/lib/db";
+import { findBestEffort } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { liftTypes } from "@/lib/utils";
+import Select from "react-select";
+import WorkoutCard from "@/components/WorkoutCard/WorkoutCard";
+import Link from "next/link";
+
 
 export default function Profile({ user, workouts }) {
 
     const options = ["Activity", "Featured", "Progress"]
 
-    const [bestSquat, setBestSquat] = useState(0);
-    const [bestBench, setBestBench] = useState(0);
-    const [bestDeadlift, setBestDeadlift] = useState(0);
     const [selectedLift, setSelectedLift] = useState(null);
     const [selectedOption, setSelectedOption] = useState(options[0]);
 
     useEffect(() => {
         if (!workouts) return;
-        setBestSquat(findBestEffort(workouts, "Squat"));
-        setBestBench(findBestEffort(workouts, "Bench Press"));
-        setBestDeadlift(findBestEffort(workouts, "Deadlift"));
     }, [workouts])
 
     const orderedWorkouts = workouts.sort((a, b) => {
@@ -48,7 +43,7 @@ export default function Profile({ user, workouts }) {
                     />
                     <button className={selectedLift ? "px-3 py-1 bg-red-600 ml-2 rounded text-sm text-white font-medium" : "hidden"} onClick={() => setSelectedLift(null)}>Clear</button>
                     </div>
-                    <div className="bg-slate-100">
+                    <div className="">
                         {selectedLift && filteredWorkouts.length === 1 && (
                             <div className="p-4">
                                 <p className="text-sm font-medium">{user.firstName} has {filteredWorkouts.length} {selectedLift} Workout recorded</p>
@@ -73,13 +68,11 @@ export default function Profile({ user, workouts }) {
                 ) : (
                     <div className="max-w-[600px] mx-auto pb-20 px-4 pt-12 flex flex-col justify-center text-slate-800">
                     <h3 className="text-[1.5rem] font-semibold mb-4">No workouts to display yet.</h3>
-                    <p className="text-[1.2rem] font-medium"><Link className="underline text-orange-600" href="/AddWorkout">Add a workout</Link> to start growing your profile activity!</p>
                     </div>
                 )}
             </div>
         )
     }
-
     return (
         <div className="mt-[80px] max-w-[600px] mx-auto w-screen text-slate-700">
             <div className="flex items-center mb-6 px-4">
@@ -112,7 +105,7 @@ export default function Profile({ user, workouts }) {
             </div>
             <div>
                 {selectedOption === options[0] && (
-                    <ActivityView filteredWorkouts={filteredWorkouts} user={user}/>
+                    <ActivityView />
                 )}
             </div>
         </div>
@@ -120,49 +113,33 @@ export default function Profile({ user, workouts }) {
 }
 
 export async function getServerSideProps(context) {
-    const session = await getSession({ req: context.req });
+    const userEmail = context.params.email;  // Extract the email from context.params
+    const { req, res } = context;
+    const session = await getSession({ req });
 
-    // If the user isn't logged in, redirect them to the login page or any other page
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/auth/signin', // Change to your login page path
-                permanent: false,
-            },
-        };
-    }
+    const client = await clientPromise;  // Connect to the database
+    const db = client.db("LiftingApp");
+    const usersCollection = db.collection("users");
 
-    const client = await clientPromise;
-    const db = client.db('LiftingApp'); // Assuming 'LiftingApp' is your database name
+    // Find the user with the extracted email
+    const user = await usersCollection.findOne({ email: userEmail });
 
-    // Fetch the user's details from your database
-    const userCollection = db.collection('users');
-    const user = await userCollection.findOne({ email: session.user.email });
-
+    const authenticatedUser = await usersCollection.findOne({ email: session.user.email });
+    
     if (!user) {
-        // If user isn't found in the database, handle appropriately (e.g., redirect to a different page)
         return {
-            notFound: true,
+            notFound: true
         };
     }
 
-    // Fetch the user's workouts based on the IDs in the user.workouts array
-    const workoutCollection = db.collection('workouts');
-    let workouts = [];
-    let bestLifts = [];
-    let workoutIds = [];
-    if(user.workouts && user.workouts.length > 0) {
-        workouts = await workoutCollection.find({ _id: { $in: user.workouts } }).toArray();
-    }
+    // Get workouts that the user has created
+    const workoutCollection = db.collection("workouts");
+    const workouts = await workoutCollection.find({ userId: userEmail }).toArray();
 
     return {
         props: {
-            user: JSON.parse(JSON.stringify(user)), // This ensures the data is serializable
-            workouts: JSON.parse(JSON.stringify(workouts)), // This ensures the data is serializable
-            bestLifts: JSON.parse(JSON.stringify(bestLifts)), // This ensures the data is serializable
+            user: JSON.parse(JSON.stringify(user)),
+            workouts: JSON.parse(JSON.stringify(workouts)),
         },
     };
 }
-
-
-

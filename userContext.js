@@ -164,6 +164,8 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_WORKOUT', payload: workoutId });
   };
 
+  
+
   return (
     <UserContext.Provider value={{ user, addFollower, removeFollower, toggleLikeWorkout, fetchUser, removeUserWorkout }}>
       {loading ? <LoaderComponent /> : children}

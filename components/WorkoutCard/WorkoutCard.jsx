@@ -8,21 +8,16 @@ import { useUser } from '@/userContext'
 import SocialSection from './SocialSection'
 import WorkoutMenu from './WorkoutMenu'
 import { useRouter } from 'next/router'
-import { useWorkout } from '@/workoutContext'
+import Link from 'next/link'
 
 
 export default function WorkoutCard ({workout: initialWorkout}) {
 
     const [isExpanded, setIsExpanded] = useState(false)
-
     const [ellipsisIsSelected, setEllipsisIsSelected] = useState(false)
-
     const [isUserWorkout, setIsUserWorkout] = useState(false)
-
     const [workout, setWorkout] = useState(initialWorkout);
-
     const [toggleConfirmDelete, setToggleConfirmDelete] = useState(false);
-
     const { user, removeUserWorkout } = useUser();
 
     const router = useRouter();
@@ -104,10 +99,6 @@ export default function WorkoutCard ({workout: initialWorkout}) {
         }
     };
     
-
-
-
-
     const ConfirmDeleteModal = () => {
         return toggleConfirmDelete ? (
             <div>
@@ -124,17 +115,6 @@ export default function WorkoutCard ({workout: initialWorkout}) {
         ) : null
     }
 
-    const KnucksModal = () => {
-        return (
-            <div>
-                <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-25 z-50 flex items-center justify-center">
-                                
-                </div>
-            </div>
-        )
-    }
-
-
     return (
         <div className="w-full bg-white rounded-lg shadow mb-4 text-slate-700 overflow-x-hidden">
             <ConfirmDeleteModal />
@@ -142,6 +122,7 @@ export default function WorkoutCard ({workout: initialWorkout}) {
                     <div>
                         <div className="w-full flex justify-between">
                             <div className="mb-3">
+                                <Link href={user && workout.userId === user.email ? '/profile' : `/profiles/${workout.userId}/profile`}>
                                 <div className="flex items-center mb-1">
                                     <img src={workout.photoUrl} className="w-[45px] h-[45px] mr-2 rounded-full"/>
                                     <div>
@@ -154,6 +135,7 @@ export default function WorkoutCard ({workout: initialWorkout}) {
                                         </div>
                                     </div>
                                 </div>
+                                </Link>
                             </div>
                             
                             {isUserWorkout ? ((
