@@ -42,10 +42,14 @@ export const WorkoutLikes = ({ workout }) => {
 }
 
 export const StrengthSpectrum = ({ liftName, sets, bodyweight, gender }) => {
+
+    const router = useRouter();
+
     const bestORM = Math.max(...sets.map(set => calculateOneRepMax(set.weight, set.reps)));
     const lift = standardizedLifts.find(l => l.name === liftName);
     const standards = gender === "male" ? lift.maleStandards : lift.femaleStandards;
     const userMultiplier = bestORM / bodyweight;
+    const categories = ["beginner", "novice", "intermediate", "advanced", "elite"]
 
     const standardValues = Object.values(standards);
     let userPercentage = 0;
@@ -65,26 +69,30 @@ export const StrengthSpectrum = ({ liftName, sets, bodyweight, gender }) => {
         }
     }
 
-    return (
+    console.log(userPercentage)
+
+     return (
+        router.pathname === "/SubmitWorkout" ? null : (
         <>
-        <div className="spectrum">
-            {["beginner", "novice", "intermediate", "advanced", "elite"].map((level, index) => (
-                <div 
-                    key={level}
-                    style={{left: `${index * 25}%`}}
-                    className={`point ${level === userCategory ? 'active' : ''}`}
-                    title={level}
-                />
-            ))}
-            <div className="user-marker" style={{left: `${userPercentage}%`}} title="You"></div>
-        </div>
-        <div className="grid grid-cols-4 my-2 text-center w-full text-[0.65rem] mb-4">
-            <p>Beginner</p>
-            <p>Novice</p>
-            <p>Intermediate</p>
-            <p>Advanced</p>
-        </div>
+            <div className="spectrum">
+                {categories.map((level, index) => (
+                    <div 
+                        key={level}
+                        style={{left: `${index * 25}%`}}
+                        className={`point ${level === userCategory ? 'active' : ''}`}
+                        title={level}
+                    />
+                ))}
+                <div className="user-marker" style={{left: `${userPercentage}%`}} title="You"></div>
+            </div>
+            <div className="grid grid-cols-4 my-2 text-center w-full text-[0.65rem] mb-4 text-slate-700">
+                <p className={`${userCategory === categories[0] ? "font-bold" : ""}`}>{categories[0].charAt(0).toUpperCase() + categories[0].slice(1)}</p>
+                <p className={`${userCategory === categories[1] ? "font-bold" : ""}`}>{categories[1].charAt(0).toUpperCase() + categories[1].slice(1)}</p>
+                <p className={`${userCategory === categories[2] ? "font-bold" : ""}`}>{categories[2].charAt(0).toUpperCase() + categories[2].slice(1)}</p>
+                <p className={`${userCategory === categories[3] ? "font-bold" : ""}`}>{categories[3].charAt(0).toUpperCase() + categories[3].slice(1)}</p>
+            </div>
         </>
+        )
     );
 }
 

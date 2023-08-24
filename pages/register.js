@@ -39,6 +39,12 @@ const Register = () => {
     { value: 'pro', label: 'Pro' }
   ];
 
+  const genderOptions = [
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+  ];
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -46,6 +52,10 @@ const Register = () => {
 
   const handleExperienceChange = (option) => {
     setForm({ ...form, experience: option.value });
+  };
+
+  const handleGenderChange = (option) => {
+    setForm({ ...form, gender: option.value });
   };
 
   const handleSubmit = async (e) => {
@@ -81,24 +91,13 @@ const Register = () => {
       <h2 className="text-2xl font-semibold mb-4">We just need a little info before you get started.</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="lg:grid grid-cols-2 gap-x-4">
-            <div className="flex flex-col">
+            <div className="flex flex-col max-sm:mb-2">
               <label className="text-lg">First Name:</label>
               <input type="text" name="firstName" onChange={handleChange} required className="p-2 border rounded" />
             </div>
             <div className="flex flex-col">
-              <label className="text-lg">Last Name:</label>
+              <label className="text-lg max-sm:mb-2">Last Name:</label>
               <input type="text" name="lastName" onChange={handleChange} required className="p-2 border rounded" />
-            </div>
-        </div>
-        <div className="lg:grid grid-cols-2 gap-x-4">
-            <div className="flex flex-col">
-              <label className="text-lg">Phone Number:</label>
-              <input type="tel" name="phoneNumber" inputMode="numeric" pattern="[0-9]*" onChange={handleChange} required className="p-2 border rounded" />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-lg">Weight (lbs):</label>
-              <input type="number" inputMode="numeric" pattern="[0-9]*" name="weight" onChange={handleChange} required className="p-2 border rounded" />
-              <p className="red-400 text-xs">*Your weight will not be shared with anyone. It is only used for relative strength calculations.</p>
             </div>
         </div>
         <div className="flex flex-col">
@@ -108,8 +107,30 @@ const Register = () => {
             onChange={handleExperienceChange}
             isSearchable
             placeholder="Select your experience"
-            className="p-2 border rounded"
+            className="rounded"
           />
+        </div>
+        <div className="flex flex-col">
+          <label className="text-lg">Gender:</label>
+          <Select
+            options={genderOptions}
+            onChange={handleGenderChange}
+            isSearchable={false}
+            placeholder="Select your gender"
+            className="rounded"
+            default="male"
+          />
+        </div>
+        <div className="lg:grid grid-cols-2 gap-x-4">
+            <div className="flex flex-col max-sm:mb-2">
+              <label className="text-lg">Phone Number:</label>
+              <input type="tel" name="phoneNumber" inputMode="numeric" pattern="[0-9]*" onChange={handleChange} required className="p-2 border rounded" />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-lg max-sm:mb-2">Weight (lbs):</label>
+              <input type="number" inputMode="numeric" pattern="[0-9]*" name="weight" onChange={handleChange} required className="p-2 border rounded" />
+              <p className="red-400 text-xs">*Your weight will not be shared with anyone. It is only used for relative strength calculations.</p>
+            </div>
         </div>
         <button type="submit" className="px-3 py-2 bg-orange-600 text-white font-medium rounded w-full hover:bg-orange-500 transition-colors duration-200 ease-in-out">
           Submit

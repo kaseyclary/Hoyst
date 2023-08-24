@@ -32,6 +32,8 @@ export default async function handler(req, res) {
       likes: [],
       comments: [],
       photoUrl: user.photoUrl,
+      gender: user.gender,
+      bodyweight: user.weight,
       visibility
     });
 
