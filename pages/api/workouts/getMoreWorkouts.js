@@ -1,5 +1,6 @@
 import { getSession } from 'next-auth/react';
 import clientPromise from '@/lib/db';
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req, res) {
   // Check for the HTTP method. We only want to accept GET.
@@ -34,10 +35,16 @@ export default async function handler(req, res) {
   const limit = 10;  // Number of workouts per page.
   const skip = (page - 1) * limit;
 
+  const existingIds = req.query.existingIds ? JSON.parse(req.query.existingIds) : [];
+  console.log(existingIds);
+
   const workouts = await workoutCollection
-    .find({ userId: { $in: usersToFetchWorkoutsFor } })
+    .find({ 
+        userId: { $in: usersToFetchWorkoutsFor },
+    })
     .skip(skip)
     .limit(limit)
+    .sort({ date: -1 })
     .toArray();
 
   // Filter workouts based on visibility

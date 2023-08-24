@@ -17,6 +17,7 @@ const Register = () => {
     experience: '',
     phoneNumber: '',
     weight: '',
+    gender: '',
     following: [],
     followers: [],
     likedWorkouts: [],

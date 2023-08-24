@@ -17,7 +17,7 @@ export default function Home({ initialWorkouts }) {
   //For infinite scroll
   const fetchMoreData = async () => {
     const nextPage = page + 1;
-    const res = await fetch(`/api/workouts/getMoreWorkouts?=${nextPage}`);
+    const res = await fetch(`/api/workouts/getMoreWorkouts?page=${nextPage}`);
     const newWorkouts = await res.json();
 
     if (newWorkouts.length < 10) {
@@ -27,7 +27,9 @@ export default function Home({ initialWorkouts }) {
     const updatedWorkouts = [...workouts, ...newWorkouts].sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
-
+    console.log("New Workouts:", newWorkouts);
+    console.log("Updated Workouts:", updatedWorkouts);
+    console.log(page)
     setWorkouts(updatedWorkouts);
     setPage(nextPage);
   };
@@ -119,6 +121,7 @@ export async function getServerSideProps(context) {
   const limit = 10; //Limit is for infinite scroll, lower initial page data
   const workouts = await workoutCollection
     .find({ userId: { $in: usersToFetchWorkoutsFor } })
+    .sort({ date: -1 })
     .limit(limit)
     .toArray();
 
