@@ -5,20 +5,38 @@ import Link from 'next/link';
 import { liftTypes } from '@/lib/utils';
 import Select from 'react-select';
 import { useState } from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function Home({ workouts }) {
+export default function Home({ initialWorkouts }) {
 
   const [selectedLift, setSelectedLift] = useState(null);
+  const [workouts, setWorkouts] = useState(initialWorkouts);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  const orderedWorkouts = workouts.sort((a, b) => {
-    return new Date(b.date) - new Date(a.date);
-  });
+  //For infinite scroll
+  const fetchMoreData = async () => {
+    const nextPage = page + 1;
+    const res = await fetch(`/api/workouts/getMoreWorkouts?=${nextPage}`);
+    const newWorkouts = await res.json();
+
+    if (newWorkouts.length < 10) {
+      setHasMore(false);
+    }
+
+    const updatedWorkouts = [...workouts, ...newWorkouts].sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+
+    setWorkouts(updatedWorkouts);
+    setPage(nextPage);
+  };
 
   const filteredWorkouts = selectedLift
-  ? orderedWorkouts.filter(workout => 
-      workout.lifts.some(lift => lift.name === selectedLift)
-    )
-  : orderedWorkouts;
+    ? workouts.filter(workout => 
+        workout.lifts.some(lift => lift.name === selectedLift)
+      )
+    : workouts;
 
   return (
     <div className="bg-slate-100">
@@ -37,9 +55,21 @@ export default function Home({ workouts }) {
         </div>
           {filteredWorkouts.length ? (
           <div className="max-w-[600px] mx-auto pb-20">
+            <InfiniteScroll
+              dataLength={filteredWorkouts.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<h4>Loading...</h4>}
+              endMessage={
+                <p style={{ textAlign: 'center' }}>
+                    <b>No more workouts to display.</b>
+                </p>
+              }
+            >
             {filteredWorkouts.map((workout) => (
                 <WorkoutCard key={workout._id} workout={workout} />
             ))}
+            </InfiniteScroll>
           </div>
         ) : (
           <div className="max-w-[600px] mx-auto pb-20 px-4 pt-12 h-screen flex flex-col justify-center text-slate-800">
@@ -86,8 +116,10 @@ export async function getServerSideProps(context) {
   const usersToFetchWorkoutsFor = [session.user.email, ...user.following];
   
   const workoutCollection = db.collection('workouts');
+  const limit = 10; //Limit is for infinite scroll, lower initial page data
   const workouts = await workoutCollection
     .find({ userId: { $in: usersToFetchWorkoutsFor } })
+    .limit(limit)
     .toArray();
 
   // create an array that only includes the user's own workouts and those of the users they follow where the workout visibility is set to public or the workout visibility field doesn't exist
@@ -109,7 +141,7 @@ export async function getServerSideProps(context) {
   }));
 
   return {
-    props: { workouts: serializedWorkouts },
+    props: { initialWorkouts: serializedWorkouts },
   };
 }
 
