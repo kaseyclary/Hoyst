@@ -53,7 +53,7 @@ export default function BottomNav ({children}) {
             </main>
                 <div className="max-w-[600px] mx-auto px-6 flex justify-end z-30">
                     {router.pathname === "/AddWorkout" || router.pathname === "/SubmitWorkout" || router.pathname.startsWith("/workouts/") || router.pathname ==="/register" ? null : (
-                        <div onClick={() => router.push("/AddWorkout")} className="fixed bottom-20 bg-blue-500 h-[55px] w-[55px] rounded-full drop-shadow-lg flex items-center justify-center cursor-pointer hover:bg-blue-400 transition-colors duration-300 ease-in-out">
+                        <div onClick={() => router.push("/AddWorkout")} className="fixed bottom-24 bg-blue-500 h-[55px] w-[55px] rounded-full drop-shadow-lg flex items-center justify-center cursor-pointer hover:bg-blue-400 transition-colors duration-300 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-white font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M10 2a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H3a1 1 0 110-2h6V3a1 1 0 011-1z"/>
                             </svg>
@@ -61,7 +61,7 @@ export default function BottomNav ({children}) {
                     )}
                 </div>
             {router.pathname === "/register" ? null : (
-                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center h-16 z-50">
+                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center z-50 pb-[8px] pt-[4px]">
                 <div className="flex justify-between items-center w-full max-w-[500px] px-8 pb-3">
                     <div className="flex flex-col items-center" onClick={() => router.push('/friends')}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
