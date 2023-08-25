@@ -1,0 +1,32 @@
+{
+    "theme_color": "#ef6c00",
+    "background_color": "#ef6c00",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Hoyst",
+    "short_name": "Hoyst",
+    "description": "Hoyst is a social weight lifting and strength training app built for serious lifters. Log your workouts, post them for others to see, share programs, track goals and progress, and more.",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
