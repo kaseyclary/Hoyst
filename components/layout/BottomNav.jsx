@@ -61,10 +61,10 @@ export default function BottomNav ({children}) {
                     )}
                 </div>
             {router.pathname === "/register" ? null : (
-                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center z-50 pb-[8px] pt-[4px]">
+                <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center z-50 pb-[10px] pt-[4px]">
                 <div className="flex justify-between items-center w-full max-w-[500px] px-8 pb-3">
                     <div className="flex flex-col items-center" onClick={() => router.push('/friends')}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[28px] w-[28px] text-slate-400 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <circle cx="5" cy="6" r="2" fill="currentColor"/>
                             <path d="M5 9c-1.5 0-2.5 1-2.5 2v2h5v-2c0-1-1-2-2.5-2z" fill="currentColor"/>
                             <circle cx="10" cy="6" r="2" fill="currentColor"/>
@@ -75,20 +75,20 @@ export default function BottomNav ({children}) {
                         <p className="text-xs font-semibold text-slate-400">Friends</p>
                     </div>
                     <div className="flex flex-col items-center" onClick={() => router.push("/profile")}>
-                        <svg xmlns="http://www.w3.org/2000/svg"  className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg"  className="h-[28px] w-[28px] text-slate-400 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <circle cx="10" cy="6" r="4" fill="currentColor"/>
                             <path d="M10 11c-3.5 0-5 1.5-5 3v2h10v-2c0-1.5-1.5-3-5-3z" fill="currentColor"/>
                         </svg>
                         <p className="text-xs font-semibold text-slate-400">Profile</p>
                     </div>
                     <div className="flex flex-col items-center" onClick={() => router.push("/Home")}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[28px] w-[28px] text-slate-400 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10 2l8 8-2 2-1-1v7h-6v-4H9v4H5v-7l-1 1-2-2 8-8z" />
                         </svg>
                         <p className="text-xs font-semibold text-slate-400">Home</p>
                     </div>
                     <div className="flex flex-col items-center" onClick={() => handleFeatureComingSoon("Analytics")}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[28px] w-[28px] text-slate-400 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <rect x="3" y="10" width="3" height="6"/>
                             <rect x="8" y="8" width="3" height="8"/>
                             <rect x="13" y="4" width="3" height="12"/>
@@ -96,7 +96,7 @@ export default function BottomNav ({children}) {
                         <p className="text-xs font-semibold text-slate-400">Analyze</p>
                     </div>
                     <div className="flex flex-col items-center" onClick={() => handleFeatureComingSoon("Goals")}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-slate-200 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-[28px] w-[28px] text-slate-400 font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                             <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1" fill="none"/>
                             <circle cx="10" cy="10" r="5" stroke="currentColor" strokeWidth="1" fill="none"/>
                             <circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1" fill="currentColor"/>
