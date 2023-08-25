@@ -37,14 +37,14 @@ export default function BottomNav ({children}) {
             </div>
         ) : (
         <div className="max-w-screen">
-            <nav className="fixed top-0 h-[50px] w-screen bg-slate-600 px-4 z-30">
+            <nav className="fixed top-0 h-[40px] w-screen bg-white px-4 z-30 border-b-[1px]">
                 <div className="max-w-[600px] h-full mx-auto flex items-center justify-between">
-                    <h1 className="text-white font-bold text-xl">Hoyst</h1>
+                    <h1 className="text-orange-500 font-bold text-xl">Hoyst</h1>
                     <div className="flex h-full items-center">
                         <div className="mr-5">
                             <ShadowSignOutButton />
                         </div>
-                        <NotificationBellIcon height={25} width={25} color={'white'} />
+                        <NotificationBellIcon height={22} width={22} color={'#cfd8dc'} />
                     </div>
                 </div>
             </nav>
