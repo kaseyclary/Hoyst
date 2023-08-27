@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /Home
+Disallow: /api/
+Disallow: /goals
+Disallow: /friends
+Disallow: /profile
+Disallow: /register
+Disallow: /workouts/
+Disallow: /profiles/
+Disallow: /addWorkout
+Disallow: /addGoal
+Disallow: /SubmitWorkout
+
+# Host
+Host: https://www.hoyst.app
+
+# Sitemaps
+Sitemap: https://www.hoyst.app/sitemap.xml

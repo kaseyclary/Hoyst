@@ -19,7 +19,7 @@ const SignOutButton = () => {
 const ShadowSignInButton = () => {
     return (
         <div>
-            <button className="px-2 py-1 border border-white text-white rounded font-medium hover:bg-white hover:text-slate-600 transition-colors duration-200 ease-in-out" onClick={() => signIn('google')}>Sign In</button>
+            <button className="px-2 py-1 border text-white rounded font-medium bg-orange-500 hover:text-slate-600 transition-colors duration-200 ease-in-out" onClick={() => signIn('google')}>Sign In</button>
         </div>
     )
 }

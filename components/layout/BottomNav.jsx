@@ -3,10 +3,13 @@ import { NotificationBellIcon } from "../icons";
 import { ShadowSignInButton, ShadowSignOutButton } from "../Auth";
 import { useUser } from "@/userContext";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function BottomNav ({children}) {
 
     const router = useRouter()
+    const { data: session } = useSession();
 
     const handleNavigation = () => {
         router.push("/AddWorkout");
@@ -39,10 +42,18 @@ export default function BottomNav ({children}) {
         <div className="max-w-screen">
             <nav className="fixed top-0 h-[40px] w-screen bg-white px-4 z-30 border-b-[1px]">
                 <div className="max-w-[600px] h-full mx-auto flex items-center justify-between">
-                    <h1 className="text-orange-500 font-bold text-xl">Hoyst</h1>
+                    <Link href="https://www.hoyst.app">
+                        <h1 className="text-orange-500 font-bold text-xl">Hoyst</h1>
+                    </Link>
                     <div className="flex h-full items-center">
                         <div className="mr-5">
-                            <ShadowSignOutButton />
+                            {
+                                !session ? (
+                                    <ShadowSignInButton />
+                                ) : (
+                                    <ShadowSignOutButton />
+                                )
+                            }
                         </div>
                         <NotificationBellIcon height={22} width={22} color={'#cfd8dc'} />
                     </div>
@@ -52,7 +63,7 @@ export default function BottomNav ({children}) {
                 {children}
             </main>
                 <div className="max-w-[600px] mx-auto px-6 flex justify-end z-30">
-                    {router.pathname === "/AddWorkout" || router.pathname === "/SubmitWorkout" || router.pathname.startsWith("/workouts/") || router.pathname ==="/register" ? null : (
+                    {router.pathname === "/AddWorkout" || router.pathname === "/SubmitWorkout" || router.pathname.startsWith("/workouts/") || router.pathname.startsWith("/blog") || router.pathname ==="/register" ? null : (
                         <div onClick={() => router.push("/AddWorkout")} className="fixed bottom-24 bg-blue-500 h-[55px] w-[55px] rounded-full drop-shadow-lg flex items-center justify-center cursor-pointer hover:bg-blue-400 transition-colors duration-300 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-[35px] w-[35px] text-white font-bold flex items-center justify-center" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M10 2a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H3a1 1 0 110-2h6V3a1 1 0 011-1z"/>
@@ -60,7 +71,7 @@ export default function BottomNav ({children}) {
                         </div>
                     )}
                 </div>
-            {router.pathname === "/register" ? null : (
+            {router.pathname === "/register" || !session ? null : (
                 <div className="fixed bottom-0 left-0 w-full bg-white border-t border-t-slate-200 flex justify-center items-center z-50 pb-[10px] pt-[4px]">
                 <div className="flex justify-between items-center w-full max-w-[500px] px-8 pb-3">
                     <div className="flex flex-col items-center" onClick={() => router.push('/friends')}>

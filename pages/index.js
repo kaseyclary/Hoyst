@@ -16,6 +16,9 @@ export default function Home() {
         <title>Hoyst</title>
         <meta name="description" content="Hoyst is a social weight lifting and strength training app built for serious lifters. Log your workouts, post them for others to see, share programs, track goals and progress, and more." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="google" content="notranslate" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="bg-slate-800">
