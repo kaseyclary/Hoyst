@@ -14,6 +14,7 @@ export default function Home() {
     <>
       <Head>
         <title>Hoyst</title>
+        <meta name="title" content="Hoyst | The Premiere Social and Analytics App for Strength Athletes" />
         <meta name="description" content="Hoyst is a social weight lifting and strength training app built for serious lifters. Log your workouts, post them for others to see, share programs, track goals and progress, and more." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
