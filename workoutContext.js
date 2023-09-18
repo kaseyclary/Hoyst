@@ -79,6 +79,10 @@ export const useWorkout = () => {
     }
   }
 
+  const handleNameChange = (name) => {
+    setWorkout({ ...workout, name: name });
+  };
+
   const editWorkout = async () => {
     try {
       const response = await fetch('/api/workouts/editWorkout', {
@@ -237,6 +241,7 @@ const handleRepsChange = (liftIndex, setIndex, reps) => {
         submitWorkout,
         clearWorkout,
         editWorkout,
+        handleNameChange,
     }}>
       {children}
     </WorkoutContext.Provider>

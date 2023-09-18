@@ -4,17 +4,26 @@ import Lift from '@/components/WorkoutForm/Lift';
 import { useRouter } from 'next/router';
 
 const AddWorkout = () => {
+
+  const router = useRouter();
+
   const { 
     workout, 
     handleWorkoutNameChange,
     handleWorkoutDateChange,
+    handleNameChange,
     handleAddLift,
-    handleWorkoutReview,
-    submitWorkout,
     clearWorkout,
   } = useWorkout();
 
-  const router = useRouter();
+  const handleWorkoutReview = () => {
+    if (workout.name === '') {
+      handleNameChange('Lifting Session')
+      router.push('/SubmitWorkout');
+    } else {
+      router.push('/SubmitWorkout');
+    }
+  }
 
   return (
     <div className="w-screen min-h-screen bg-slate-200">
